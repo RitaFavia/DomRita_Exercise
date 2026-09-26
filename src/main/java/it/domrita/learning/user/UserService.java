@@ -1,5 +1,7 @@
 package it.domrita.learning.user;
 
+
+import it.domrita.learning.common.exception.EmailAlreadyExistsException;
 import it.domrita.learning.user.dto.CreateUserRequest;
 import it.domrita.learning.user.dto.UserResponse;
 import jakarta.transaction.Transactional;
@@ -24,7 +26,7 @@ public class UserService {
         {User user= new User(request.name(),request.email());
           userRepository.save(user);
         return new UserResponse(user.getId(),user.getEmail(), user.getName());
-        }else throw new IllegalArgumentException("Sei coglione ti sei già registrato");
+        }else throw new EmailAlreadyExistsException("Email già registrata");
 
     }
 
